@@ -31,8 +31,7 @@ void	print_nbr(int n)
 {
 	if (n)
 		print_nbr(n / 10);
-	if (n)
-		ft_printchar((n % 10) + 48);
+	ft_printchar((n % 10) + 48);
 }
 
 int	ft_printnbr(int n)
