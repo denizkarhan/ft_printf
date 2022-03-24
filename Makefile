@@ -13,7 +13,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	ar -rcs $(NAME) $(OBJ)
 
-clean : $(OBJ)
+clean :
 	rm -rf $(OBJ)
 
 fclean : clean
