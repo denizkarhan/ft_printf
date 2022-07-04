@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
-int	ft_printchar(int c)
+int	ft_printfchar(int c)
 {
-	write(1, &c, 1);
-	return (1);
+	return (write(1, &c, 1));
 }
 
 int	ft_formats(va_list args, const char format)
@@ -24,19 +23,19 @@ int	ft_formats(va_list args, const char format)
 
 	sum = 0;
 	if (format == 'c')
-		sum += ft_printchar(va_arg(args, int));
+		sum += ft_printfchar(va_arg(args, int));
 	else if (format == 's')
-		sum += ft_printstr(va_arg(args, char *));
+		sum += ft_printfstr(va_arg(args, char *));
 	else if (format == 'p')
-		sum += ft_print_ptr(va_arg(args, unsigned long long));
+		sum += ft_printf_ptr(va_arg(args, unsigned long long));
 	else if (format == 'd' || format == 'i')
-		sum += ft_printnbr(va_arg(args, int));
+		sum += ft_printfnbr(va_arg(args, int));
 	else if (format == 'u')
-		sum += ft_print_unsigned_char(va_arg(args, unsigned int));
+		sum += ft_printf_unsigned_char(va_arg(args, unsigned int));
 	else if (format == 'x' || format == 'X')
-		sum += ft_printchar_hex(va_arg(args, unsigned int), format);
+		sum += ft_printfchar_hex(va_arg(args, unsigned int), format);
 	else if (format == '%')
-		sum += ft_printchar('%');
+		sum += write(1, "%%", 1);
 	return (sum);
 }
 
@@ -54,7 +53,7 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 			sum += ft_formats(args, str[++i]);
 		else
-			sum += ft_printchar(str[i]);
+			sum += write(1, &str[i], 1);
 		i++;
 	}
 	va_end(args);

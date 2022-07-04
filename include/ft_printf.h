@@ -19,14 +19,11 @@
 # include <stdlib.h>
 
 int		ft_printf(const char *str, ...);
-int		ft_printchar(int c);
-int		ft_printstr(char *str);
-int		ft_printnbr(int n);
-int		ft_printchar_hex(unsigned int x, char format);
-int		ft_print_unsigned_char(unsigned int u);
-int		ft_print_ptr(unsigned long long p);
-int		ptr_len(unsigned long long p);
-void	print_nbr(int n);
-void	write_ptr(unsigned long long p);
+int		ft_printfchar(int c);
+int		ft_printfstr(char *str);
+int		ft_printfnbr(long n);
+int		ft_printfchar_hex(unsigned long x, char format);
+int		ft_printf_unsigned_char(unsigned int u);
+int		ft_printf_ptr(unsigned long p);
 
 #endif

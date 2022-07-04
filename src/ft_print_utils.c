@@ -10,89 +10,70 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
-int	ft_printstr(char *str)
+// int	write_ptr(unsigned long p)
+// {
+// 	static int	size;
+
+// 	if(p >= 16)
+// 			write_ptr(p / 16);
+// 	size += write(1, &"0123456789abcdef"[p % 16], 1);
+// 	return (size);
+// }
+
+int	ft_printf_ptr(unsigned long p)
+{
+	write (1, "0x", 2);
+	return (ft_printfchar_hex(p, 'x') + 2);
+}
+
+int	ft_printfstr(char *str)
 {
 	int	i;
 
 	i = -1;
 	if (!str)
-		return (ft_printstr("(null)"));
-	else
-	{
-		while (str[++i] != '\0')
-			write(1, &str[i], 1);
-		return (i);
-	}
-}
-
-void	print_nbr(int n)
-{
-	if (n)
-		print_nbr(n / 10);
-	ft_printchar((n % 10) + 48);
-}
-
-int	ft_printnbr(int n)
-{
-	int	basamak_s;
-	int	sayi;
-
-	if (n == -2147483648)
-		return (ft_printstr("-2147483648"));
-	sayi = n;
-	basamak_s = 0;
-	if (!n)
-	{
-		ft_printchar(48);
-		return (1);
-	}
-	while (sayi != 0 && ++basamak_s)
-		sayi /= 10;
-	if (n < 0 && ++basamak_s)
-	{
-		ft_printchar('-');
-		n *= -1;
-	}
-	if (n)
-		print_nbr(n);
-	return (basamak_s);
-}
-
-int	ft_printchar_hex(unsigned int x, char format)
-{
-	static int	i;
-	char		c;
-
-	i = 0;
-	c = x % 16 + 48;
-	if (x)
-		if (x / 16 != 0)
-			ft_printchar_hex(x / 16, format);
-	if (x % 16 < 10 && ++i)
-		write(1, &c, 1);
-	else
-	{
-		c += 39;
-		if (format == 'X')
-			c -= 32;
-		write(1, &c, 1);
-		++i;
-	}
+		return (write(1, "(null)", 6));
+	while (str[++i] != '\0')
+		write(1, &str[i], 1);
 	return (i);
 }
 
-int	ft_print_unsigned_char(unsigned int u)
+int	ft_printfnbr(long n)
+{
+	static int	size;
+
+	if (n < 0)
+	{
+		n *= -1;
+		size += write(1, "-", 1);
+	}
+	if (n >= 10)
+		ft_printfnbr(n / 10);
+	size += write(1, &"0123456789"[n % 10], 1);
+	return (size);
+}
+
+int	ft_printfchar_hex(unsigned long x, char format)
+{
+	static int	size;
+
+	if (x >= 16)
+		ft_printfchar_hex(x / 16, format);
+	if (format == 'x')
+		size += write(1, &"0123456789abcdef"[x % 16], 1);
+	else
+		size += write(1, &"0123456789ABCDEF"[x % 16], 1);
+	return (size);
+}
+
+int	ft_printf_unsigned_char(unsigned int u)
 {
 	static int	i;
-	char		c;
 
-	c = u % 10 + 48;
-	i = 0;
-	if (u)
-		if (u / 10 != 0)
-			ft_print_unsigned_char(u / 10);
-	write(1, &c, 1);
-	return (++i);
+	if (u >= 10)
+		ft_printf_unsigned_char(u / 10);
+	i += write(1, &"0123456789"[u % 10], 1);
+	return (i);
 }

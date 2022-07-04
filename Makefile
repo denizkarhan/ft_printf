@@ -4,16 +4,16 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_printf.c ft_printf_utils.c ft_print_ptr.c
+SRC = $(wildcard SRC/*.c)
 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	ar -rcs $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-clean : $(OBJ)
+clean :
 	rm -rf $(OBJ)
 
 fclean : clean
