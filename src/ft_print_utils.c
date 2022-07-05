@@ -12,16 +12,6 @@
 
 #include "../include/ft_printf.h"
 
-// int	write_ptr(unsigned long p)
-// {
-// 	static int	size;
-
-// 	if(p >= 16)
-// 			write_ptr(p / 16);
-// 	size += write(1, &"0123456789abcdef"[p % 16], 1);
-// 	return (size);
-// }
-
 int	ft_printf_ptr(unsigned long p)
 {
 	write (1, "0x", 2);
